@@ -73,7 +73,7 @@ describe('getS3Object', function() {
   });
 
   //TODO: implement properly - mock AWS.S3 .getObject()
-  it('should resolve the options object when required params are included', function(done) {
+  xit('should resolve the options object when required params are included', function(done) {
     var options = {
       srcBucket: "my-lil-red-bucket",
       srcKey: "my-red-lil-key.png",
