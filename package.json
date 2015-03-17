@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/lambduh/lambduh-get-s3-object",
   "dependencies": {
+    "aws-sdk": "^2.1.17",
     "q": "^1.2.0"
   },
   "devDependencies": {
