@@ -16,7 +16,7 @@ var download = require('lambduh-get-s3-object');
 //your lambda function
 exports.handler = function(event, context) {
   var promises = [];
-  
+
   promises.push(function(options) {
     options.srcBucket = "source-bucket"
     options.srcKey = "path/to/s3/key.txt"
