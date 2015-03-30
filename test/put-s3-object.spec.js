@@ -7,17 +7,13 @@ describe('getS3Object', function() {
     expect(get).to.exist;
   });
 
-  it('should return a function', function() {
-    expect(get()).to.be.a('function');
-  })
-
-  it('should return a function that returns a promise', function() {
-    expect(get()().then).to.exist;
+  it('should return a promise', function() {
+    expect(get().then).to.exist;
   });
 
  describe('validation', function() {
     it('should throw an error on null options input', function(done) {
-      get()().then(function() {
+      get().then(function() {
         done(new Error('Expected function to throw error'));
       }, function(err) {
         if (err) {
@@ -29,7 +25,7 @@ describe('getS3Object', function() {
     });
 
     it('should require srcBucket param', function(done) {
-      get()({}).then(function() {
+      get(null, {}).then(function() {
         done(new Error('Expected function to throw error'));
       }, function(err) {
         if (err) {
@@ -44,7 +40,7 @@ describe('getS3Object', function() {
       var options = {
         srcBucket: "my-lil-red-bucket"
       }
-      get()(options).then(function() {
+      get(null, options).then(function() {
         done(new Error('Expected function to throw error'));
       }, function(err) {
         if (err) {
@@ -60,7 +56,7 @@ describe('getS3Object', function() {
         srcBucket: "my-lil-red-bucket",
         srcKey: "my-red-lil-key.png"
       }
-      get()(options).then(function() {
+      get(null, options).then(function() {
         done(new Error('Expected function to throw error'));
       }, function(err) {
         if (err) {
@@ -73,18 +69,20 @@ describe('getS3Object', function() {
   });
 
   //TODO: implement properly - mock AWS.S3 .getObject()
-  xit('should resolve the options object when required params are included', function(done) {
+  xit('should resolve the result object when required params are included', function(done) {
     var options = {
       srcBucket: "my-lil-red-bucket",
       srcKey: "my-red-lil-key.png",
       downloadFilepath: "/tmp/my-red-lil-key.png",
       key: 'val'
     }
-    get()(options).then(function(opts) {
+    var result = {}
+    get(result, options).then(function(opts) {
       if (opts == options) {
+        //implement this test
         done();
       } else {
-        done(new Error('Expected resolved options to match inputted options'));
+        done(new Error('Expected resolved result to match inputted result'));
       }
     }, function() {
       done(new Error('Expected function to pass'));
