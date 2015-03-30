@@ -27,15 +27,19 @@ module.exports = function(result, options) {
     };
 
     var file = fs.createWriteStream(options.downloadFilepath)
-    var S3Req = new AWS.S3({params: params}).getObject();
-    S3Req.on('complete', function() {
-      def.resolve(options);
-    });
-    S3Req.on('error', function(err) {
-      def.reject(err);
-    });
+    var S3Req = new AWS.S3({params: params});
+    S3.getObject()
+      .on('httpData', function(chunk) {
+        file.write(chunk)
+      })
+      .on('success', function() {
+        def.resolve(result);
+      })
+      .on('error', function(err) {
+        def.reject(err);
+      })
+      .send();
 
-    S3Req.createReadStream().pipe(file);
   }
 
   return def.promise;
