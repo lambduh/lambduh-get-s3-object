@@ -28,17 +28,21 @@ module.exports = function(result, options) {
 
     var file = fs.createWriteStream(options.downloadFilepath)
     var S3 = new AWS.S3({params: params});
-    S3.getObject()
-      .on('httpData', function(chunk) {
-        file.write(chunk)
-      })
-      .on('success', function() {
-        def.resolve(result);
-      })
-      .on('error', function(err) {
-        def.reject(err);
-      })
-      .send();
+
+    var downloadProgress = 0;
+    var readStream = S3.getObject().createReadStream();
+
+    readStream.on('data', function(chunk) {
+      downloadProgress += chunk.length;
+      console.log('downloadProgress: ' + downloadProgress);
+    });
+    readStream.on('end', function() {
+      def.resolve(result);
+    });
+    readStream.on('error', function(err) {
+      def.reject(err);
+    });
+    readStream.pipe(file);
 
   }
 
