@@ -27,7 +27,7 @@ module.exports = function(result, options) {
     };
 
     var file = fs.createWriteStream(options.downloadFilepath)
-    var S3Req = new AWS.S3({params: params});
+    var S3 = new AWS.S3({params: params});
     S3.getObject()
       .on('httpData', function(chunk) {
         file.write(chunk)
