@@ -17,7 +17,7 @@ module.exports = function(result, options) {
   } else {
 
     for(var key in options) {
-      //unit test needs to enforce this
+      //TODO: unit test needs to enforce this
       result[key] = options[key];
     }
 
