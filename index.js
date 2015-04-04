@@ -34,8 +34,9 @@ module.exports = function(result, options) {
 
     readStream.on('data', function(chunk) {
       downloadProgress += chunk.length;
-      if (options.logLevel = 'debug')
+      if (options.logLevel == 'debug') {
         console.log('downloadProgress: ' + downloadProgress);
+      }
     });
     readStream.on('end', function() {
       console.log('downloaded: ' + params.Key);
