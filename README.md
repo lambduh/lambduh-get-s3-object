@@ -33,7 +33,9 @@ exports.handler = function(event, context) {
 
 This module expects three fields on the passed `options` object: `.srcBucket`, `.srcKey`, and `.downloadFilepath`
 
-It will download an object to the specified filepath from the specifed S3 bucket and key.
+By default this will use the default region the lambda operates in.  If you need to operate on an S3 bucket in another region you can set the region field on the `options` object: `.region`.
+
+It will download an object to the specified filepath from the specifed S3 bucket, key and region (if specified).
 
 Note: for whatever reason, this func is resolving before the stream is
 completely finished. In practice, I'm solving this with a 500ms timeout.

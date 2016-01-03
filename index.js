@@ -27,7 +27,12 @@ module.exports = function(result, options) {
     };
 
     var file = fs.createWriteStream(options.downloadFilepath)
-    var S3 = new AWS.S3({params: params});
+
+    if (options.region) {
+      var S3 = new AWS.S3({params: params, region: options.region});
+    } else {
+      var S3 = new AWS.S3({params: params});
+    }
 
     var downloadProgress = 0;
     var readStream = S3.getObject().createReadStream();
