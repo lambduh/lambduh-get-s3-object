@@ -37,10 +37,6 @@ By default this will use the default region the lambda operates in.  If you need
 
 It will download an object to the specified filepath from the specifed S3 bucket, key and region (if specified).
 
-Note: for whatever reason, this func is resolving before the stream is
-completely finished. In practice, I'm solving this with a 500ms timeout.
-Which sucks, but has been good enough for now.
-
 # Full disclosure
 
 This module's tests don't yet cover the `aws-sdk` implementation - only the validation and other basic things.
