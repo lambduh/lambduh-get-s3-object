@@ -43,12 +43,12 @@ module.exports = function(result, options) {
         console.log('downloadProgress: ' + downloadProgress);
       }
     });
-    readStream.on('end', function() {
-      console.log('downloaded: ' + params.Key);
-      def.resolve(result);
-    });
     readStream.on('error', function(err) {
       def.reject(err);
+    });
+    file.on('close', function () {
+      console.log('downloaded: ' + params.Key);
+      def.resolve(result);
     });
     readStream.pipe(file);
 
